@@ -1,5 +1,5 @@
 "use client"
-import { authClient } from "@/lib/auth-client";
+import { authClient } from "@/lib/auth/auth-client";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
@@ -10,7 +10,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     if (!session && !isPending) {
-      router.push("/login");
+      router.push("/signin");
     }
   }, [session, isPending]);
 

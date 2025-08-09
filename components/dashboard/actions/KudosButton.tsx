@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Heart } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useTransition } from "react";
-import { toggleInteraction } from "../../../actions/interactions.actions";
+import { toggleInteraction } from "../../../server/interactionsAction";
 
 export default function KudosButton({ postId, currentKudos }: { postId: number; currentKudos: number }) {
     const path = usePathname();

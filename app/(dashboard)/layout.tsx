@@ -1,20 +1,26 @@
-import Header from "@/components/layout/Header";
 import Sidebar from "@/components/layout/Sidebar";
+import { createSupabaseServerClient } from "@/lib/supabase/server-client";
+import { ClientLayout } from "./client-layout";
 
-export default function DashboardLayout({
+export default async function DashboardLayout({
     children,
 }: {
     children: React.ReactNode;
 }) {
+    const supabase = await createSupabaseServerClient();
+    const { data } = await supabase.auth.getUser();
+    // In a real app, you would fetch the full user profile from your 'users' table
+    const userProfile = data.user ? {
+        id: data.user.id,
+        email: data.user.email || '',
+        name: data.user.email?.split('@')[0] || 'User', 
+        avatar: `https://placehold.co/100x100/16a34a/ffffff?text=${data.user.email?.[0].toUpperCase() || 'U'}`,
+        town: 'Greenwood'
+    } : null;
+
     return (
-        <div className="flex h-screen bg-gray-100 dark:bg-gray-900">
-            <Sidebar />
-            <div className="flex flex-col flex-1">
-                <Header />
-                <main className="flex-1 p-4 md:p-6 lg:p-8 overflow-y-auto">
-                    {children}
-                </main>
-            </div>
-        </div>
+        <ClientLayout userProfile={userProfile}>
+            {children}
+        </ClientLayout>
     );
 }

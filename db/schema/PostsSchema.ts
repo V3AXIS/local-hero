@@ -1,5 +1,5 @@
 import { pgTable, text, varchar, timestamp, serial, integer, jsonb, pgEnum } from 'drizzle-orm/pg-core';
-import { towns } from './towns';
+import { towns } from './TownsSchema';
 import { user } from './AuthSchema';
 
 export const postTypeEnum = pgEnum('post_type', ['Job', 'Issue', 'Event', 'BusinessReview', 'Rental', 'GoodDeed']);

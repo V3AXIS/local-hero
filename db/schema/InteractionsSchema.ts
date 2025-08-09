@@ -1,5 +1,5 @@
-import { pgTable, serial, integer, text, varchar, pgEnum } from 'drizzle-orm/pg-core';
-import { posts } from './posts';
+import { pgTable, serial, integer, text,pgEnum } from 'drizzle-orm/pg-core';
+import { posts } from './PostsSchema';
 import { user } from './AuthSchema';
 
 export const interactionTypeEnum = pgEnum('interaction_type', ['Upvote', 'Rsvp', 'Kudo']);

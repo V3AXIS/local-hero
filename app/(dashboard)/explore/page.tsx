@@ -34,8 +34,13 @@ async function getTownAnalytics(townId: string) {
     };
 }
 
-export default async function ExplorePage({ searchParams }: { searchParams: { townId: string } }) {
-    const analyticsData = await getTownAnalytics(searchParams.townId || 'default-town');
+export default async function ExplorePage({ 
+    searchParams 
+}: { 
+    searchParams: Promise<{ [key: string]: string | string[] | undefined }> 
+}) {
+    const params = await searchParams;
+    const analyticsData = await getTownAnalytics(params?.townId as string || 'default-town');
 
     return (
         <div className="space-y-6 w-full">

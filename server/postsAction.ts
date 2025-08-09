@@ -1,8 +1,8 @@
 "use server";
 import { revalidatePath } from "next/cache";
-import { db } from "../../server/db";
-import { posts } from "../../server/db/schema";
 import { and, eq, ilike } from "drizzle-orm";
+import { db } from "@/db";
+import { posts } from "@/db/schema";
 
 export const createPost = async (data: any, path: string) => {
     if (!data.title || !data.type || !data.authorId || !data.townId) {

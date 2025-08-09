@@ -18,8 +18,10 @@ async function getTownFeed(townId: string, filter: string) {
     return allPosts.filter(post => post.type.toLowerCase() === filter.toLowerCase());
 }
 
-export default async function TownHubPage({ params, searchParams }: { params: { townId: string }, searchParams: { filter: string } }) {
-    const posts = await getTownFeed(params.townId, searchParams.filter);
+export default async function TownHubPage({ params, searchParams }: { params: Promise<{ townId: string }>, searchParams: Promise<{ filter: string }> }) {
+    const { townId } = await params;
+    const { filter } = await searchParams;
+    const posts = await getTownFeed(townId, filter);
 
     return (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">

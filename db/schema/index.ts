@@ -1,7 +1,7 @@
 import { relations } from 'drizzle-orm';
-import { towns } from './towns';
-import { posts } from './posts';
-import { interactions } from './interactions';
+import { towns } from './TownsSchema';
+import { posts } from './PostsSchema';
+import { interactions } from './InteractionsSchema';
 import { user } from './AuthSchema';
 
 export const usersRelations = relations(user, ({ many }) => ({
@@ -37,7 +37,7 @@ export const interactionsRelations = relations(interactions, ({ one }) => ({
 }));
 
 // Export all schemas and relations
-export * from './towns';
-export * from './posts';
-export * from './interactions';
+export * from './TownsSchema';
+export * from './PostsSchema';
+export * from './InteractionsSchema';
 export * from "./AuthSchema";
