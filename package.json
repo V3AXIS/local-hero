@@ -11,10 +11,14 @@
     "db:studio": "drizzle-kit studio",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
-    "shadcn": "npx shadcn@latest add"
+    "shadcn": "npx shadcn@latest add",
+    "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
+    "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
+    "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.1",
+    "@opennextjs/cloudflare": "^1.6.5",
     "@radix-ui/react-avatar": "^1.1.10",
     "@radix-ui/react-dialog": "^1.1.14",
     "@radix-ui/react-label": "^2.1.7",
@@ -54,7 +58,8 @@
     "@types/react-dom": "^19",
     "tailwindcss": "^4",
     "turbo": "^2.5.5",
-    "typescript": "^5"
+    "typescript": "^5",
+    "wrangler": "^4.28.1"
   },
   "packageManager": "npm@10.9.2"
 }
