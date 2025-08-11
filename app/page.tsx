@@ -1,7 +1,9 @@
 import { Button } from "@/components/ui/button";
+import { getCurrentUser } from "@/server/userAction";
 import Link from "next/link";
 
-export default function HomePage() {
+export default async function HomePage() {
+  const user = await getCurrentUser();
   return (
     <div className="flex flex-col items-center justify-center min-h-screen  text-center p-4">
       <h1 className="text-5xl md:text-6xl tracking-tighter font-bold ">
@@ -11,15 +13,22 @@ export default function HomePage() {
         The heart of your community. Connect with neighbors, discover local events, and help make your town a better place.
       </p>
       <div className="mt-8 flex flex-col sm:flex-row gap-4">
-        <Button asChild size="lg">
-          <Link href="/signin">Sign In</Link>
-        </Button>
+        {user ?
+          <p>Hi, {user?.name}</p>
+          :
+          <Button asChild size="lg">
+            <Link href="/signin">Sign In</Link>
+          </Button>
+        }
+
       </div>
-      <p className="mt-12 text-sm ">
+      <p className="mt-12 text-sm flex gap-2 items-center ">
         Just want to look around?{" "}
-        <Link href="/explore?townId=1" className="underline ">
-          Explore a community
-        </Link>
+        <Button asChild >
+          <Link href="/explore?townId=1">
+            Explore Community
+          </Link>
+       </Button>
       </p>
     </div>
   );
