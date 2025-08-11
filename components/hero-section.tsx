@@ -11,7 +11,7 @@ export default function HeroSection() {
         <div className="text-section max-w-lg mx-auto text-center lg:mx-0 lg:w-1/2 lg:text-left py-8">
           <h1 className="headline text-4xl font-semibold tracking-tight md:text-5xl">
             Where Neighbors become Local{" "}
-            <span className=" text-muted-foreground">Heroes D1</span>.
+            <span className=" text-muted-foreground">Heroes D2</span>.
           </h1>
           <p className="subheadline mt-4 text-lg ">
             Stay connected, take action, and see your community thrive. Local
@@ -42,4 +42,3 @@ export default function HeroSection() {
     </main>
   );
 }
-
