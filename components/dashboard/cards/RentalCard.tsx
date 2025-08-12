@@ -18,7 +18,7 @@ export default function RentalCard({ title, content, author, metadata }: any) {
                 <p className="text-sm text-gray-700">{content}</p>
             </CardContent>
             <CardFooter className="flex justify-between items-center">
-                <p className="text-xs text-gray-500">Listed by {author?.username || 'Owner'}</p>
+                <p className="text-xs text-muted-foreground">Listed by {author?.username || 'Owner'}</p>
                 <Button variant="outline">Get Directions</Button>
             </CardFooter>
         </Card>

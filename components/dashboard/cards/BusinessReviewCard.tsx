@@ -14,7 +14,7 @@ export default function BusinessReviewCard({ title, content, author, metadata }:
                     ))}
                 </div>
             </CardContent>
-            <CardFooter><p className="text-xs text-gray-500 dark:text-gray-400">Reviewed by {author?.username || 'Anonymous'}</p></CardFooter>
+            <CardFooter><p className="text-xs text-muted-foreground dark:text-muted-foreground">Reviewed by {author?.username || 'Anonymous'}</p></CardFooter>
         </Card>
     );
 }

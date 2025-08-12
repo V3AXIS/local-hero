@@ -13,7 +13,7 @@ export default function GoodDeedCard({ id, title, content, author, interactions 
                 <p className="text-sm text-gray-700">{content}</p>
             </CardContent>
             <CardFooter className="flex justify-between items-center">
-                <p className="text-xs text-gray-500">By {author?.username || 'Anonymous'}</p>
+                <p className="text-xs text-muted-foreground">By {author?.username || 'Anonymous'}</p>
                 <KudosButton postId={id} currentKudos={kudosCount} />
             </CardFooter>
         </Card>

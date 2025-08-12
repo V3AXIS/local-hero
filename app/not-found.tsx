@@ -7,7 +7,7 @@ export default function NotFound() {
       <div className=" text-center ">
         <h1 className=" text-3xl font-bold tracking-tighter">404</h1>
         <p className="my-3">Could not find requested resource</p>
-        <Link href="/"><Button size={'sm'} >Return Home</Button></Link>
+        <Link href="/"><Button >Return Home</Button></Link>
       </div>
     </div>
   );

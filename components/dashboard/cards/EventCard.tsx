@@ -9,11 +9,11 @@ export default function EventCard({ id, title, date, rsvps, limit }: { id: strin
                 <CardTitle>{title}</CardTitle>
             </CardHeader>
             <CardContent className="flex items-center space-x-4">
-                <div className="flex items-center text-sm text-gray-500">
+                <div className="flex items-center text-sm text-muted-foreground">
                     <Calendar className="w-4 h-4 mr-2" />
                     <span>{date}</span>
                 </div>
-                <div className="flex items-center text-sm text-gray-500">
+                <div className="flex items-center text-sm text-muted-foreground">
                     <Users className="w-4 h-4 mr-2" />
                     <span>{rsvps} / {limit} attending</span>
                 </div>

@@ -18,8 +18,8 @@ export default function JobCard({ title, content, author, metadata }: any) {
                 <p className="text-sm text-gray-700">{content}</p>
             </CardContent>
             <CardFooter className="flex justify-between items-center">
-                <p className="text-xs text-gray-500">Posted by {author?.username || 'Company'}</p>
-                <Button>Apply Now</Button>
+                <p className="text-xs text-muted-foreground">Posted by {author?.username || 'Company'}</p>
+                <Button size={'sm'}>Apply Now</Button>
             </CardFooter>
         </Card>
     );

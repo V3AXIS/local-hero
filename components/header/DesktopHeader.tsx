@@ -10,12 +10,14 @@ import { ModeToggle } from "../mode-toggle";
 export default function DesktopHeader({ user }: any) {
     const links = [
         { href: "/", title: "Home" },
-        { href: "/explore", title: "Explore" },
+        { href: "/explore/greenwood", title: "Explore" },
+        { href: "/select-location", title: "Locate" },
+        { href: "/profile/alex_hero", title: "Profile" },
     ];
     return (
-        <header className="z-30 absolute top-5 w-full ">
-            <div className="mx-auto max-w-6xl px-4">
-                <div className="flex h-14 items-center justify-between gap-3 rounded-xl border border-input/50 bg-background/50 dark:bg-background/30 px-3  backdrop-blur ">
+        <header className="z-30 absolute  top-5 w-full">
+            <div className="container mx-auto max-w-6xl px-4">
+                <div className="flex h-14 items-center justify-between gap-3 rounded-xl backdrop-blur ">
                     <Logo />
                     <ul className="flex flex-1 items-center justify-end gap-2">
                         <li className="lg:pr-4 md:not-sr-only sr-only">
