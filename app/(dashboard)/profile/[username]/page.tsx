@@ -20,7 +20,7 @@ export default function ProfilePage({ params }: { params: { username: string } }
             <Card>
                 <CardHeader className="p-6 flex flex-col items-center text-center">
                     <Avatar className="w-24 h-24 rounded-xl shadow-lg border-4  mb-4">
-                        <AvatarImage src={user.avatar} alt={user.name} />
+                        <AvatarImage src={`https://avatar.vercel.sh/local.com.png`} alt={user.name} />
                         <AvatarFallback>{user.name[0]}</AvatarFallback>
                     </Avatar>
                     <h1 className="text-2xl font-bold">{user.name}</h1>
