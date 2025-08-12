@@ -17,7 +17,6 @@ export default function ProfilePage({ params }: { params: { username: string } }
 
     return (
         <div className="container mx-auto max-w-7xl px-4  pt-32 pb-12">
-            <Card>
                 <CardHeader className="p-6 flex flex-col items-center text-center">
                     <Avatar className="w-24 h-24 rounded-xl shadow-lg border-4  mb-4">
                         <AvatarImage src={`https://avatar.vercel.sh/local.com.png`} alt={user.name} />
@@ -34,8 +33,6 @@ export default function ProfilePage({ params }: { params: { username: string } }
                         <div><p className="text-xl font-bold">{user.stats.events}</p><p className="text-sm text-muted-foreground">Events</p></div>
                     </div>
                 </CardContent>
-            </Card>
-
             <div className="mt-6">
                 <h2 className="text-xl font-bold mb-4">Post History</h2>
                 <div className="space-y-4">
