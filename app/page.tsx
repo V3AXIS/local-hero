@@ -1,8 +1,5 @@
-import HeroSection from "@/components/hero-section";
-import { getCurrentUser } from "@/server/userAction";
-
-export default async function HomePage() {
-  const user = await getCurrentUser();
+import HeroSection from "@/components/layout/HeroSection";
+export default  function HomePage() {
   return (
     <HeroSection />
   );

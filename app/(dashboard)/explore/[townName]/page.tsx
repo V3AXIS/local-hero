@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from 'react';
-import { notFound } from 'next/navigation';
+import { notFound, useParams } from 'next/navigation';
 import { MOCK_TOWNS } from '@/lib/data';
 
 import CommunityHeader from './_components/CommunityHeader';
@@ -12,8 +12,10 @@ import FilterTabs from './_components/FilterTabs';
 import CreatePostModal from './_components/CreatePostModal';
 import PostDetailModal from './_components/PostDetailModal';
 
-export default function TownExploreClientPage({ params }: { params: { townName: string } }) {
-    const townData = MOCK_TOWNS[params.townName.toLowerCase()];
+export default function TownExploreClientPage() {
+    const { townName } = useParams<{ townName: string }>();
+
+    const townData = MOCK_TOWNS[townName.toLowerCase()];
 
     const [filter, setFilter] = useState('All');
     const [selectedPost, setSelectedPost] = useState<any>(null);

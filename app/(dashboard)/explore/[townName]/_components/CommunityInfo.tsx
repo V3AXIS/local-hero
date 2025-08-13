@@ -27,7 +27,7 @@ export default function CommunityInfo({ town, onCreatePost }: { town: any, onCre
                 </CardContent>
                 <CardFooter>
                     {/* This button launches the modal for creating a new post, defaulting to 'issue' type */}
-                    <Button className="w-full" onClick={() => onCreatePost('issue')}>
+                    <Button className="w-full"   size={'sm'} onClick={() => onCreatePost('issue')}>
                         Create Post
                     </Button>
                 </CardFooter>
