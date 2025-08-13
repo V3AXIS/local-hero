@@ -2,7 +2,7 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { ArrowBigUp, ArrowBigDown, CornerDownRight } from 'lucide-react';
+import { CornerDownRight, ArrowUpFromDot, ArrowDownToDot } from 'lucide-react';
 import { Separator } from "@/components/ui/separator";
 
 const Comment = ({ comment, isReply = false }: { comment: any, isReply?: boolean }) => (
@@ -16,10 +16,10 @@ const Comment = ({ comment, isReply = false }: { comment: any, isReply?: boolean
                 <span className="text-muted-foreground"> • {comment.timestamp}</span>
             </div>
             <p className="text-sm mt-1">{comment.text}</p>
-            <div className="flex items-center gap-1 text-muted-foreground -ml-2">
-                <Button variant="ghost" size="sm" className="hover:bg-muted"><ArrowBigUp className="h-4 w-4" /></Button>
-                <Button variant="ghost" size="sm" className="hover:bg-muted"><ArrowBigDown className="h-4 w-4" /></Button>
-                <Button variant="ghost" size="sm" className="hover:bg-muted"><CornerDownRight className="h-4 w-4 mr-1" /> Reply</Button>
+            <div className="flex items-center gap-1 text-muted-foreground -ml-2 my-3">
+                <Button variant="ghost" size="icon" ><ArrowUpFromDot /></Button>
+                <Button variant="ghost" size="icon" ><ArrowDownToDot /></Button>
+                <Button variant="ghost" size="sm" ><CornerDownRight /> Reply</Button>
             </div>
             {comment.replies && comment.replies.map((reply: any) => (
                 <Comment key={reply.id} comment={reply} isReply={true} />

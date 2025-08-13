@@ -3,7 +3,7 @@
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { ArrowBigUp, ArrowBigDown, MessageSquare, MapPin, Briefcase } from 'lucide-react';
+import { MessageSquare, MapPin, Briefcase, ArrowUpFromDot, ArrowDownToDot } from 'lucide-react';
 import { ICONS } from '@/lib/data';
 
 export default function PostCard({ post, onSelectPost }: { post: any, onSelectPost: () => void }) {
@@ -31,9 +31,9 @@ export default function PostCard({ post, onSelectPost }: { post: any, onSelectPo
                     {post.comments} Comments
                 </Button>
                 <div className="flex items-center gap-2">
-                    <Button variant="ghost" size="sm" className="hover:text-primary"><ArrowBigUp /></Button>
-                    <span className="font-bold text-sm">{post.upvotes}</span>
-                    <Button variant="ghost" size="sm" className="hover:text-destructive"><ArrowBigDown /></Button>
+                    <Button variant="ghost" size="icon" className="hover:text-primary"><ArrowUpFromDot /></Button>
+                    <span className=" text-sm">{post.upvotes}</span>
+                    <Button variant="ghost" size="icon" className="hover:text-primary"><ArrowDownToDot /></Button>
                 </div>
             </CardFooter>
         </Card>

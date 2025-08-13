@@ -5,7 +5,7 @@ import Logo from "@/shared/logo";
 import MobileHeader from "./mobile-header";
 import AuthButtons from "../layout/AuthButtons";
 import UserMenu from "../layout/UserMenu";
-import { ModeToggle } from "../mode-toggle";
+import { ModeToggle } from "../theme/mode-toggle";
 
 export default function DesktopHeader({ user }: any) {
     const links = [
