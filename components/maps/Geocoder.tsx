@@ -34,11 +34,16 @@ const Polygon = dynamic(
 );
 
 import "leaflet/dist/leaflet.css";
+import { Button } from "../ui/button";
+import { toast } from "sonner";
+import { completeOnboarding } from "@/server/userAction";
+import { useRouter } from "next/navigation";
 
 export default function Geocoder() {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
   const [selectedCity, setSelectedCity] = useState<any | null>(null);
+  const router= useRouter();
 
   // Ensure map and Leaflet configuration only run on client side
   useEffect(() => {
@@ -75,7 +80,6 @@ export default function Geocoder() {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         const data = await response.json();
-        console.log("Search results:", data);
         setResults(data);
         setSelectedCity(null);
       } catch (error) {
@@ -89,6 +93,42 @@ export default function Geocoder() {
   const handleInputChange = (value: string) => {
     setQuery(value);
     handleSearch(value);
+  };
+  const handleComplete = async () => {
+    if (!selectedCity) {
+      toast.error("Select a city first");
+      return;
+    }
+    let polygonPositions = null;
+    if (selectedCity.geojson?.type === "Polygon") {
+      polygonPositions = selectedCity.geojson.coordinates[0];
+    } else if (selectedCity.boundingbox) {
+      polygonPositions = getPolygonCoordinates(selectedCity.boundingbox);
+    }
+    let polygonWKT = null;
+    if (polygonPositions) {
+      const coords = polygonPositions
+        .map(([lat, lon]: [number, number]) => `${lon} ${lat}`) // Swap to [lon, lat] for PostgreSQL
+        .join(", ");
+      polygonWKT = `POLYGON((${coords}))`;
+    }
+    const res = await completeOnboarding({
+      country: selectedCity.address.country,
+      country_code: selectedCity.address.country_code,
+      state: selectedCity.address.state,
+      state_district: selectedCity.address.state_district,
+      town: selectedCity.address.town,
+      municipality: selectedCity.address.municipality,
+      display_name: selectedCity.display_name,
+      lat: selectedCity.lat,
+      lon: selectedCity.lon,
+      name: selectedCity.name,
+      polygon: polygonWKT,
+    });
+    if(res){
+      toast.success("Onboarding completed!");
+      router.push('/explore');
+    }
   };
 
   return (
@@ -133,7 +173,7 @@ export default function Geocoder() {
             : [0, 0]
         }
         zoom={5}
-        style={{ height: "400px", width: "100%" }}
+        style={{ height: "350px", width: "100%" }}
       >
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -141,6 +181,9 @@ export default function Geocoder() {
         />
         {selectedCity && <MapContent selectedCity={selectedCity} />}
       </MapContainer>
+      <Button className="mt-5 w-full cursor-pointer" onClick={handleComplete}>
+        Complete
+      </Button>
     </div>
   );
 }
@@ -178,18 +221,17 @@ function MapContent({ selectedCity }: { selectedCity: any }) {
         >
           <Popup>{selectedCity.display_name}</Popup>
         </Marker>
-          <Polygon
-            positions={polygonPositions}
-            pathOptions={{
-              color: "blue",
-              fillColor: "blue",
-              fillOpacity: 0.2,
-              weight: 2,
-            }}
-          >
-            <Popup>{popupText}</Popup>
-          </Polygon>
-        
+        <Polygon
+          positions={polygonPositions}
+          pathOptions={{
+            color: "blue",
+            fillColor: "blue",
+            fillOpacity: 0.2,
+            weight: 2,
+          }}
+        >
+          <Popup>{popupText}</Popup>
+        </Polygon>
       </div>
     </>
   );

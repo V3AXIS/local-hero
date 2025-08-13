@@ -1,7 +1,7 @@
 "use server";
 
 import { db } from "@/db";
-import { eq } from "drizzle-orm";
+import { eq, sql } from "drizzle-orm";
 import { getSession } from "./getSession";
 import { towns, user } from "@/db/schema";
 
@@ -52,5 +52,23 @@ export async function checkUserOnboarding(userId: string) {
       hasProfile:false,
       onboardingCompleted: false
     }
+  }
+}
+export async function completeOnboarding(data:any ) {
+  const session = await getSession();
+  if (!session?.user?.id) {
+    return null;
+  }
+  try {
+    await db.insert(towns).values({
+      userId:session.user.id,
+      ...data,
+      polygon:data.polygon ? sql`ST_GeomFromText(${data.polygon}, 4326)` : null,
+      onboardingCompleted:true
+    });
+    return true;
+  } catch (error) {
+    console.error("Error completing onboarding:", error);
+    return null;
   }
 }

@@ -11,11 +11,11 @@ export const towns = pgTable('towns', {
     state:text('state'),
     state_district:text('state_district'),
     town:text('town'),
-    muncipality:text('muncipality'),
+    municipality:text('municipality'),
     display_name:text('display_name'),
     lat:text('lat'),
     lon:text('lon'),
     name:text('name'),
     onboardingCompleted: boolean("onboarding_completed").notNull().default(false),
-    polygon:geometry('polygon',{type:'point',srid:4326}),
+    polygon:geometry('polygon',{type:'polygon',srid:4326}),
 });

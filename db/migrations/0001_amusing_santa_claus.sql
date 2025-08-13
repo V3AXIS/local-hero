@@ -1,0 +1,1 @@
+ALTER TABLE "towns" RENAME COLUMN "muncipality" TO "municipality";
