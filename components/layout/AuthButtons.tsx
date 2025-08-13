@@ -6,11 +6,11 @@ export default function AuthButtons() {
     return (
         <>
             <li className="md:inline-block hidden">
-                <Link href="/signin">
-                    <Button size={'sm'}>
+                <Button size={'sm'} asChild>
+                    <Link href="/signin">
                         Sign In
-                    </Button>
-                </Link>
+                    </Link>
+                </Button>
             </li>
             {/* <li className="md:inline-block hidden">
                 <Link href="/signup">
