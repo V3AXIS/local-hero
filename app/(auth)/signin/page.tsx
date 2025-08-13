@@ -10,6 +10,7 @@ import { useState } from 'react';
 import { Loader2 } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { checkUserOnboarding } from '@/server/userAction';
 
 interface FormValues {
   email: string;
@@ -26,9 +27,19 @@ export default function Page() {
   const handleFormSubmit = async (data: FormValues) => {
     setIsLoading(true);
     await signIn.email(data, {
-      onSuccess: () => {
+      onSuccess: async (response: any) => {
         toast.success("Signed in successfully!");
-        router.push('/');
+        const userId=response.data.user.id;
+        if(userId){
+          const res = await checkUserOnboarding(userId);
+          if(res!.hasProfile && res!.onboardingCompleted){
+            router.push('/profile');
+          }else{
+            router.push('/onboarding');
+          }
+        }else{
+          router.push('/');
+        }
         router.refresh();
       },
       onError: (err: any) => {

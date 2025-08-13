@@ -1,16 +1,24 @@
-'use client';
+"use client";
 
-import { useForm } from 'react-hook-form';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import { signUp } from '@/lib/auth/auth-client';
-import { toast } from 'sonner';
-import { useState } from 'react';
-import { Loader2 } from 'lucide-react';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { FcGoogle } from 'react-icons/fc';
+import { useForm } from "react-hook-form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { signUp } from "@/lib/auth/auth-client";
+import { toast } from "sonner";
+import { useState } from "react";
+import { Loader2 } from "lucide-react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { FcGoogle } from "react-icons/fc";
+import { checkUserOnboarding } from "@/server/userAction";
 
 interface FormValues {
   name: string;
@@ -29,14 +37,24 @@ export default function Page() {
   const handleFormSubmit = async (data: FormValues) => {
     setIsLoading(true);
     await signUp.email(data, {
-      onSuccess: () => {
-        toast.success("Account created successfully");
-        router.push('/');
-        router.push('/');
+      onSuccess: async (response: any) => {
+        toast.success("Signed up successfully!");
+        const userId = response.data.user.id;
+        if (userId) {
+          const res = await checkUserOnboarding(userId);
+          if (res!.hasProfile && res!.onboardingCompleted) {
+            router.push("/profile");
+          } else {
+            router.push("/onboarding");
+          }
+        } else {
+          router.push("/");
+        }
+        router.refresh();
       },
       onError: (err: any) => {
         toast.error(err?.error?.message);
-      }
+      },
     });
     setIsLoading(false);
   };
@@ -44,10 +62,15 @@ export default function Page() {
   return (
     <div>
       <div className="mb-10">
-        <h1 className=' md:text-4xl text-3xl font-bold tracking-tight'>Create <br /> your account</h1>
+        <h1 className=" md:text-4xl text-3xl font-bold tracking-tight">
+          Create <br /> your account
+        </h1>
       </div>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(handleFormSubmit)} className="space-y-4">
+        <form
+          onSubmit={form.handleSubmit(handleFormSubmit)}
+          className="space-y-4"
+        >
           <FormField
             control={form.control}
             name="name"
@@ -82,7 +105,11 @@ export default function Page() {
               <FormItem>
                 <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input type="email" placeholder="name@example.com" {...field} />
+                  <Input
+                    type="email"
+                    placeholder="name@example.com"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -102,7 +129,12 @@ export default function Page() {
               <FormItem>
                 <FormLabel>Password</FormLabel>
                 <FormControl>
-                  <Input type="password" placeholder="••••••••" {...field} autoComplete="on" />
+                  <Input
+                    type="password"
+                    placeholder="••••••••"
+                    {...field}
+                    autoComplete="on"
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -124,6 +156,4 @@ export default function Page() {
       </div>
     </div>
   );
-
-
 }
